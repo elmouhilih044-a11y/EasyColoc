@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
    
-protected $fillable = ['amount','payed_date','payer_id','receiver_id'];
+protected $fillable = ['amount','payed_date','payer_id','receiver_id','expense_id'];
 
     public function payer()
     {
@@ -18,4 +18,9 @@ protected $fillable = ['amount','payed_date','payer_id','receiver_id'];
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }
+
+    public function expense()
+{
+    return $this->belongsTo(Expense::class);
+}
 }

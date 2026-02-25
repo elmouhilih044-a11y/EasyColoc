@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePaymentRequest;
 
 class PaymentController extends Controller
 {
@@ -12,7 +13,9 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+    $payments = Payment::all();
+
+    return view('payments.index',compact('payments'));
     }
 
     /**
@@ -20,15 +23,17 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        //
+        return view('payments.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePaymentRequest $request)
     {
-        //
+         Payment::create($request->validated());
+
+    return redirect()->back()->with('success','Paiement ajouté avec succès');
     }
 
     /**
@@ -36,7 +41,7 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //
+         return view('payments.show', compact('payment'));
     }
 
     /**
