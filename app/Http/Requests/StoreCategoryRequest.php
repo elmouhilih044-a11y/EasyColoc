@@ -22,7 +22,8 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-         'name' => 'required|string|max:255|unique:categories,name',
+        'name' => 'required|string|max:255',
+        'colocation_id' => 'required|exists:colocations,id',
         ];
     }
 
@@ -32,7 +33,9 @@ public function messages()
         'name.required' => 'Le nom de la catégorie est obligatoire !',
         'name.string' => 'Le nom de la catégorie doit être une chaine de caractères !',
         'name.max' => 'Le nom de la catégorie est trop long !',
-        'name.unique' => 'Cette catégorie existe déjà !',
+        'colocation_id.required' => 'La colocation est obligatoire !',
+        'colocation_id.exists' => 'La colocation sélectionnée n\'existe pas !',
+
     ];
 }
 }
