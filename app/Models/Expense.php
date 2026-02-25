@@ -9,27 +9,17 @@ class Expense extends Model
 {
      
 
-    protected $fillable = [
-        'title',
-        'amount',
-        'expense_date',
-        'colocation_id',
-        'category_id',
-        'user_id',
-    ];
+   protected $fillable = ['title', 'amount', 'expense_date', 'category_id'];
 
-    public function colocation()
-    {
-        return $this->belongsTo(Colocation::class);
-    }
-
+  
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function user()
+    
+    public function colocation()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOneThrough(Colocation::class, Category::class, 'id', 'id', 'category_id', 'colocation_id');
     }
 }

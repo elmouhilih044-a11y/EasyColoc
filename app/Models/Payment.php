@@ -7,21 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
    
-    protected $fillable = [
-        'amount',
-        'payedDate',
-        'colocation_id',
-        'payer_id',
-        'receiver_id',
-    ];
+protected $fillable = ['amount','payed_date','payer_id','receiver_id'];
 
-   
-    public function colocation()
-    {
-        return $this->belongsTo(Colocation::class);
-    }
-
- 
     public function payer()
     {
         return $this->belongsTo(User::class, 'payer_id');

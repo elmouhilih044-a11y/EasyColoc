@@ -6,16 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Membership extends Model
 {
-       protected $fillable = [
-        'user_id',
-        'colocation_id',
-        'joined_at',
-        'left_at',
-        'role'
-    ];
+      protected $fillable = ['user_id','colocation_id','joined_at','left_at','role'];
 
-
-       public function user()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

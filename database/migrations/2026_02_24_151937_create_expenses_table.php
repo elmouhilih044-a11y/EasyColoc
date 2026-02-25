@@ -16,7 +16,6 @@ return new class extends Migration
     $table->string('title');
     $table->float('amount');
     $table->date('expense_date');
-    $table->foreignId('colocation_id')->constrained('colocations')->onDelete('cascade');
     $table->foreignId('category_id')->constrained('categories')->onDelete('restrict');
     $table->timestamps();
         });
