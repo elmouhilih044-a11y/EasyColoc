@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -32,7 +33,7 @@ class CategoryController extends Controller
 {
     $data = $request->validated(); 
     Category::create($data);       
-    return redirect()->back()->with('success', 'Catégorie créée avec succès !');
+   return redirect()->route('categories.index')->with('success','Catégorie créée avec succès !');
 }
 
     /**
@@ -54,11 +55,11 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-   public function update(StoreCategoryRequest $request, Category $category)
+   public function update(UpdateCategoryRequest $request, Category $category)
 {
     $data = $request->validated();  
     $category->update($data);      
-    return redirect()->back()->with('success', 'Catégorie mise à jour avec succès !');
+    return redirect()->route('categories.index')->with('success', 'Catégorie mise à jour avec succès !');
 }
 
     /**

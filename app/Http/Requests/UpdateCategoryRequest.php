@@ -22,7 +22,7 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-          'name' => 'required|string|max:255'
+          'name' => 'required|string|max:255|unique:categories,name,' . $this->category->id,
         ];
     }
 
@@ -32,6 +32,7 @@ public function messages()
     'name.required'=>'Le nom de la catégorie est obligatoire !',
     'name.string'=>'Le nom de la catégorie doit être une chaine de caractères !',
     'name.max'=>'Le nom de la catégorie est trop long !',
+    'name.unique' => 'Cette catégorie existe déjà !',
    ]; 
 }
 }
