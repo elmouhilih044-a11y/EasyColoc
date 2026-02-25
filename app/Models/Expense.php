@@ -18,8 +18,5 @@ class Expense extends Model
     }
 
     
-    public function colocation()
-    {
-        return $this->hasOneThrough(Colocation::class, Category::class, 'id', 'id', 'category_id', 'colocation_id');
-    }
+
 }
