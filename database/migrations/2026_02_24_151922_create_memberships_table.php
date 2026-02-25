@@ -18,7 +18,7 @@ return new class extends Migration
     $table->date('joined_at');
     $table->date('left_at')->nullable();
     $table->enum('role', ['owner', 'member']);
-    $table->timestamps();
+    
         });
     }
 
