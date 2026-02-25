@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategoryRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,17 +22,16 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-         'name' => 'required|string|max:255|unique:categories,name',
+          'name' => 'required|string|max:255'
         ];
     }
 
 public function messages()
 {
-    return [
-        'name.required' => 'Le nom de la catégorie est obligatoire !',
-        'name.string' => 'Le nom de la catégorie doit être une chaine de caractères !',
-        'name.max' => 'Le nom de la catégorie est trop long !',
-        'name.unique' => 'Cette catégorie existe déjà !',
-    ];
+   return[
+    'name.required'=>'Le nom de la catégorie est obligatoire !',
+    'name.string'=>'Le nom de la catégorie doit être une chaine de caractères !',
+    'name.max'=>'Le nom de la catégorie est trop long !',
+   ]; 
 }
 }
