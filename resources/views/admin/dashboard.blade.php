@@ -62,16 +62,19 @@
                         Active
                     @endif
                 </td>
-                <td class="py-3 px-6">
-                    <a href=""
-                       class="bg-[#0D0D0D] hover:bg-[#544D59] text-[#F2F2F2] py-1 px-3 rounded">
-                        @if($user->is_banned)
-                            Débannir
-                        @else
-                            Bannir
-                        @endif
-                    </a>
-                </td>
+               <td class="py-3 px-6">
+    <form action="{{ route('users.toggleBan', $user->id) }}" method="POST">
+        @csrf
+        <button type="submit"
+                class="bg-[#0D0D0D] hover:bg-[#544D59] text-[#F2F2F2] py-1 px-3 rounded">
+            @if($user->is_banned)
+                Unban
+            @else
+                Ban
+            @endif
+        </button>
+    </form>
+</td>
             </tr>
             @endforeach
         </tbody>
