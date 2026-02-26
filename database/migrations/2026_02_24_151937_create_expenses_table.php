@@ -16,7 +16,10 @@ return new class extends Migration
     $table->string('title');
     $table->float('amount');
     $table->date('expense_date');
-    $table->foreignId('category_id')->constrained('categories')->onDelete('restrict');
+    
+    $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+    $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+
     $table->timestamps();
         });
     }
