@@ -8,6 +8,7 @@ use App\Http\Controllers\ColocationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MembershipController;
+use App\Http\Controllers\DebtController;
 
 use App\Http\Middleware\IsAdmin;
 use App\Models\Payment;
@@ -36,6 +37,15 @@ Route::post('/users/{user}/toggle-ban', [AdminController::class, 'toggleBan'])
 
 Route::post('/memberships/{membership}/leave', [MembershipController::class, 'leave'])
      ->name('memberships.leave')
+     ->middleware('auth');
+
+
+Route::get('/colocations/{colocation}/debts', [DebtController::class, 'index'])
+     ->name('debts.index')
+     ->middleware('auth');
+
+Route::post('/colocations/{colocation}/debts/pay', [DebtController::class, 'markAsPaid'])
+     ->name('debts.markAsPaid')
      ->middleware('auth');
 
 
