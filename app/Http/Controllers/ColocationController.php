@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Colocation;
+use App\Models\Membership;
 use App\Http\Requests\StoreColocationRequest;
 use App\Http\Requests\UpdateColocationRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ColocationController extends Controller
 {
@@ -27,7 +29,9 @@ class ColocationController extends Controller
 
     public function show(Colocation $colocation)
     {
-        return view('colocations.show', compact('colocation'));
+      $membership = Membership::where('user_id',Auth::user()->id)->where('colocation_id', $colocation->id)->first();
+
+        return view('colocations.show', compact('colocation', 'membership'));
     }
 
     public function edit(Colocation $colocation)
