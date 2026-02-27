@@ -28,11 +28,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('admin/dashboard', [AdminController::class, 'statistiques'])
      ->name('admin.dashboard')
-     ->middleware(['auth','admin']);
+     ->middleware(['auth', 'admin']);
 
 Route::post('/users/{user}/toggle-ban', [AdminController::class, 'toggleBan'])
      ->name('users.toggleBan')
-     ->middleware(['auth', 'admin']); 
+     ->middleware(['auth', 'admin']);
 
 Route::post('/memberships/{membership}/leave', [MembershipController::class, 'leave'])
      ->name('memberships.leave')

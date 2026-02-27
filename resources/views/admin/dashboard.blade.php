@@ -5,7 +5,7 @@
     <title>Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body style="background-color: #4A1040; color: #F5F0A0;">
+<body style="background-color: #000000; color: #F5F0A0;">
 
 <!-- Header -->
 <header style="background-color: #6B1A1A; border-bottom: 2px solid #8B2020;" class="p-6 text-center">
@@ -58,7 +58,7 @@
                 <td class="py-3 px-6" style="color: #F5C46A;">{{ $user->role }}</td>
                 <td class="py-3 px-6">
                     @if($user->is_banned)
-                        <span class="px-2 py-1 rounded text-sm" style="background-color: #4A1040; color: #F5C46A;">Banned</span>
+                        <span class="px-2 py-1 rounded text-sm" style="background-color: #000000; color: #F5C46A;">Banned</span>
                     @else
                         <span class="px-2 py-1 rounded text-sm" style="background-color: #D4894A; color: #F5F0A0;">Active</span>
                     @endif
