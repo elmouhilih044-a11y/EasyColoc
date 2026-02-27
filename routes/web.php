@@ -7,6 +7,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ColocationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MembershipController;
 
 use App\Http\Middleware\IsAdmin;
 use App\Models\Payment;
@@ -32,6 +33,10 @@ Route::get('admin/dashboard', [AdminController::class, 'statistiques'])
 Route::post('/users/{user}/toggle-ban', [AdminController::class, 'toggleBan'])
      ->name('users.toggleBan')
      ->middleware(['auth', 'admin']); 
+
+Route::post('/memberships/{membership}/leave', [MembershipController::class, 'leave'])
+     ->name('memberships.leave')
+     ->middleware('auth');
 
 
 
