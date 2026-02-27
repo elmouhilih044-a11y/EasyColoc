@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Middleware\IsAdmin;
 
 
@@ -27,5 +28,9 @@ Route::get('admin/dashboard', [AdminController::class, 'statistiques'])
 Route::post('/users/{user}/toggle-ban', [AdminController::class, 'toggleBan'])
      ->name('users.toggleBan')
      ->middleware(['auth', 'admin']); 
+
+
+
+Route::resource('expenses', ExpenseController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';

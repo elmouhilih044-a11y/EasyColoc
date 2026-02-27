@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Palette custom */
+.bg-primary   { background-color: #544D59 !important; }
+.bg-accent    { background-color: #E5D0F2 !important; }
+.bg-muted     { background-color: #9A8FA6 !important; }
+.bg-dark      { background-color: #0D0D0D !important; }
+.bg-light     { background-color: #F2F2F2 !important; }
+
+.text-primary { color: #544D59 !important; }
+.text-accent  { color: #E5D0F2 !important; }
+.text-muted   { color: #9A8FA6 !important; }
+.text-dark    { color: #0D0D0D !important; }
+.text-light   { color: #F2F2F2 !important; }
