@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ColocationController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Middleware\IsAdmin;
-
+use App\Models\Payment;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,5 +36,7 @@ Route::post('/users/{user}/toggle-ban', [AdminController::class, 'toggleBan'])
 Route::resource('expenses', ExpenseController::class)->middleware('auth');
 
 Route::resource('colocations', ColocationController::class)->middleware('auth');
+
+Route::resource('payments', PaymentController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';
