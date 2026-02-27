@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ColocationController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CategoryController;
+
 use App\Http\Middleware\IsAdmin;
 use App\Models\Payment;
 
@@ -38,5 +40,7 @@ Route::resource('expenses', ExpenseController::class)->middleware('auth');
 Route::resource('colocations', ColocationController::class)->middleware('auth');
 
 Route::resource('payments', PaymentController::class)->middleware('auth');
+
+Route::resource('categories', CategoryController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';
