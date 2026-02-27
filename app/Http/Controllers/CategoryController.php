@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Colocation;
 
 class CategoryController extends Controller
 {
@@ -14,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-    $categories=Category::all();
-       return view('categories.index',compact('categories'));
+    $categories = Category::with('colocation')->get();
+    return view('categories.index', compact('categories'));
     }
 
     /**
@@ -23,7 +24,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        $colocations = Colocation::all();
+        return view('categories.create', compact('colocations'));
     }
 
     /**
@@ -31,9 +33,8 @@ class CategoryController extends Controller
      */
    public function store(StoreCategoryRequest $request)
 {
-    $data = $request->validated(); 
-    Category::create($data);       
-   return redirect()->route('categories.index')->with('success','Catégorie créée avec succès !');
+      Category::create($request->validated());
+        return redirect()->route('categories.index')->with('success', 'Catégorie créée !');
 }
 
     /**
@@ -49,7 +50,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-         return view('categories.edit', compact('category'));
+         $colocations = Colocation::all();
+        return view('categories.edit', compact('category', 'colocations'));
     }
 
     /**
@@ -57,9 +59,8 @@ class CategoryController extends Controller
      */
    public function update(UpdateCategoryRequest $request, Category $category)
 {
-    $data = $request->validated();  
-    $category->update($data);      
-    return redirect()->route('categories.index')->with('success', 'Catégorie mise à jour avec succès !');
+      $category->update($request->validated());
+        return redirect()->route('categories.index')->with('success', 'Catégorie mise à jour !');
 }
 
     /**
@@ -67,8 +68,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+       
         $category->delete();
-
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Catégorie supprimée !');
     }
 }

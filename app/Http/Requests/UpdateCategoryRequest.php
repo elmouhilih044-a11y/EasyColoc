@@ -27,14 +27,4 @@ class UpdateCategoryRequest extends FormRequest
         ];
     }
 
-public function messages()
-{
-   return[
-    'name.required'=>'Le nom de la catégorie est obligatoire !',
-    'name.string'=>'Le nom de la catégorie doit être une chaine de caractères !',
-    'name.max'=>'Le nom de la catégorie est trop long !',
-    'colocation_id.required' => 'La colocation est obligatoire !',
-    'colocation_id.exists' => 'La colocation sélectionnée n\'existe pas !',
-   ]; 
-}
 }
