@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Expense;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
+use App\Models\Expense;
+use App\Models\User;
+use App\Models\Category;
 
 class ExpenseController extends Controller
 {
@@ -14,8 +17,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-    $expenses=Expense::all();
-    return view('expenses.index',compact('expenses'));
+  
+        $expenses = Expense::with(['category', 'user'])->get();
+        return view('expenses.index', compact('expenses'));
     }
 
     /**
@@ -23,7 +27,10 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        return view('expenses.create');
+        
+        $categories = Category::all();
+        $users = User::all();
+        return view('expenses.create', compact('categories', 'users'));
     }
 
     /**
@@ -31,9 +38,8 @@ class ExpenseController extends Controller
      */
     public function store( StoreExpenseRequest $request)
     {
-    $data = $request->validated(); 
-    Expense::create($data);       
-   return redirect()->route('expenses.index')->with('success','Expense crée avec succès !');
+         Expense::create($request->validated());
+        return redirect()->route('expenses.index')->with('success', 'Dépense créée !');
     }
 
     /**
@@ -41,7 +47,8 @@ class ExpenseController extends Controller
      */
     public function show(Expense $expense)
     {
-       return view('expenses.show',compact('expense'));
+      
+        return view('expenses.show', compact('expense'));
     }
 
     /**
@@ -49,7 +56,9 @@ class ExpenseController extends Controller
      */
     public function edit(Expense $expense)
     {
-      return view('expenses.edit',compact('expense'));
+        $categories = Category::all();
+        $users = User::all();
+        return view('expenses.edit', compact('expense', 'categories', 'users'));
     }
 
     /**
@@ -57,9 +66,8 @@ class ExpenseController extends Controller
      */
     public function update(UpdateExpenseRequest $request, Expense $expense)
     {
-    $data = $request->validated();  
-    $expense->update($data);      
-    return redirect()->route('expenses.index')->with('success', 'expense mise à jour avec succès !');
+    $expense->update($request->validated());
+        return redirect()->route('expenses.index')->with('success', 'Dépense mise à jour !');
     }
 
     /**
@@ -68,7 +76,6 @@ class ExpenseController extends Controller
     public function destroy(Expense $expense)
     {
         $expense->delete();
-        return redirect()->route('expenses.index');
-        
+        return redirect()->route('expenses.index')->with('success', 'Dépense supprimée !');
     }
 }
