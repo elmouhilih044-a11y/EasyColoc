@@ -3,68 +3,50 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Http\Requests\StorePaymentRequest;
+use App\Http\Requests\UpdatePaymentRequest;
 
 class PaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-    $payments = Payment::all();
-
-    return view('payments.index',compact('payments'));
+        $payments = Payment::with(['payer', 'receiver'])->get();
+        return view('payments.index', compact('payments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('payments.create');
+        $users = User::all();
+        return view('payments.create', compact('users'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StorePaymentRequest $request)
     {
-         Payment::create($request->validated());
-
-    return redirect()->back()->with('success','Paiement ajouté avec succès');
+        Payment::create($request->validated());
+        return redirect()->route('payments.index')->with('success', 'Paiement créé !');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Payment $payment)
     {
-         return view('payments.show', compact('payment'));
+        return view('payments.show', compact('payment'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Payment $payment)
     {
-        //
+        $users = User::all();
+        return view('payments.edit', compact('payment', 'users'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Payment $payment)
+    public function update(UpdatePaymentRequest $request, Payment $payment)
     {
-        //
+        $payment->update($request->validated());
+        return redirect()->route('payments.index')->with('success', 'Paiement mis à jour !');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Payment $payment)
     {
-        //
+        $payment->delete();
+        return redirect()->route('payments.index')->with('success', 'Paiement supprimé !');
     }
 }

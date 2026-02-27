@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ColocationController;
 use App\Http\Middleware\IsAdmin;
 
 
@@ -32,5 +33,7 @@ Route::post('/users/{user}/toggle-ban', [AdminController::class, 'toggleBan'])
 
 
 Route::resource('expenses', ExpenseController::class)->middleware('auth');
+
+Route::resource('colocations', ColocationController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';
