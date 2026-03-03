@@ -73,7 +73,9 @@ Route::resource('expenses', ExpenseController::class)->middleware('auth');
 
 Route::resource('colocations', ColocationController::class)->middleware('auth');
 
-Route::resource('payments', PaymentController::class)->middleware('auth');
+Route::post('/payments/mark-paid', [PaymentController::class, 'markAsPaid'])
+     ->name('payments.markAsPaid')
+     ->middleware('auth');
 
 Route::resource('categories', CategoryController::class)->middleware('auth');
 

@@ -33,7 +33,8 @@
 
                     {{-- Le débiteur clique quand il a donné l'argent --}}
                     @if(auth()->user()->id === $debt['debtor_id'])
-                        <form action="{{ route('debts.markAsPaid', $colocation) }}" method="POST">
+                       <form action="{{ route('payments.markAsPaid') }}" method="POST">
+    <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
                             @csrf
                             <input type="hidden" name="debtor_id"   value="{{ $debt['debtor_id'] }}">
                             <input type="hidden" name="creditor_id" value="{{ $debt['creditor_id'] }}">

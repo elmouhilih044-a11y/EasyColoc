@@ -3,50 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
-use App\Models\User;
-use App\Http\Requests\StorePaymentRequest;
-use App\Http\Requests\UpdatePaymentRequest;
 
 class PaymentController extends Controller
 {
-    public function index()
+    public function markAsPaid()
     {
-        $payments = Payment::with(['payer', 'receiver'])->get();
-        return view('payments.index', compact('payments'));
-    }
+        Payment::create([
+            'amount'      => request('amount'),
+            'payed_date'  => now(),
+            'payer_id'    => request('debtor_id'),
+            'receiver_id' => request('creditor_id'),
+        ]);
 
-    public function create()
-    {
-        $users = User::all();
-        return view('payments.create', compact('users'));
-    }
-
-    public function store(StorePaymentRequest $request)
-    {
-        Payment::create($request->validated());
-        return redirect()->route('payments.index')->with('success', 'Paiement créé !');
-    }
-
-    public function show(Payment $payment)
-    {
-        return view('payments.show', compact('payment'));
-    }
-
-    public function edit(Payment $payment)
-    {
-        $users = User::all();
-        return view('payments.edit', compact('payment', 'users'));
-    }
-
-    public function update(UpdatePaymentRequest $request, Payment $payment)
-    {
-        $payment->update($request->validated());
-        return redirect()->route('payments.index')->with('success', 'Paiement mis à jour !');
-    }
-
-    public function destroy(Payment $payment)
-    {
-        $payment->delete();
-        return redirect()->route('payments.index')->with('success', 'Paiement supprimé !');
+        return redirect()->route('debts.index', request('colocation_id'))->with('success', 'Paiement marqué !');
     }
 }
