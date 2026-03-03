@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Colocation;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -15,8 +16,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-    $categories = Category::with('colocation')->get();
-    return view('categories.index', compact('categories'));
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Accès refusé.');
+        }
+        $categories = Category::with('colocation')->get();
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -24,6 +28,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Accès refusé.');
+        }
         $colocations = Colocation::all();
         return view('categories.create', compact('colocations'));
     }
@@ -31,18 +38,24 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   public function store(StoreCategoryRequest $request)
-{
-      Category::create($request->validated());
+    public function store(StoreCategoryRequest $request)
+    {
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Accès refusé.');
+        }
+        Category::create($request->validated());
         return redirect()->route('categories.index')->with('success', 'Catégorie créée !');
-}
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(Category $category)
     {
-       return view('categories.show', compact('category'));
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Accès refusé.');
+        }
+        return view('categories.show', compact('category'));
     }
 
     /**
@@ -50,25 +63,33 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-         $colocations = Colocation::all();
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Accès refusé.');
+        }
+        $colocations = Colocation::all();
         return view('categories.edit', compact('category', 'colocations'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-   public function update(UpdateCategoryRequest $request, Category $category)
-{
-      $category->update($request->validated());
+    public function update(UpdateCategoryRequest $request, Category $category)
+    {
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Accès refusé.');
+        }
+        $category->update($request->validated());
         return redirect()->route('categories.index')->with('success', 'Catégorie mise à jour !');
-}
+    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Category $category)
     {
-       
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Accès refusé.');
+        }
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Catégorie supprimée !');
     }
