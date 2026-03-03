@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
 use App\Models\Expense;
 use App\Models\User;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
 {
@@ -17,7 +17,6 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-  
         $expenses = Expense::with(['category', 'user'])->get();
         return view('expenses.index', compact('expenses'));
     }
@@ -27,7 +26,9 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('expenses.index')->with('error', 'Accès refusé.');
+        }
         $categories = Category::all();
         $users = User::all();
         return view('expenses.create', compact('categories', 'users'));
@@ -36,9 +37,12 @@ class ExpenseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store( StoreExpenseRequest $request)
+    public function store(StoreExpenseRequest $request)
     {
-         Expense::create($request->validated());
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('expenses.index')->with('error', 'Accès refusé.');
+        }
+        Expense::create($request->validated());
         return redirect()->route('expenses.index')->with('success', 'Dépense créée !');
     }
 
@@ -47,7 +51,6 @@ class ExpenseController extends Controller
      */
     public function show(Expense $expense)
     {
-      
         return view('expenses.show', compact('expense'));
     }
 
@@ -56,6 +59,9 @@ class ExpenseController extends Controller
      */
     public function edit(Expense $expense)
     {
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('expenses.index')->with('error', 'Accès refusé.');
+        }
         $categories = Category::all();
         $users = User::all();
         return view('expenses.edit', compact('expense', 'categories', 'users'));
@@ -66,7 +72,10 @@ class ExpenseController extends Controller
      */
     public function update(UpdateExpenseRequest $request, Expense $expense)
     {
-    $expense->update($request->validated());
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('expenses.index')->with('error', 'Accès refusé.');
+        }
+        $expense->update($request->validated());
         return redirect()->route('expenses.index')->with('success', 'Dépense mise à jour !');
     }
 
@@ -75,6 +84,9 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('expenses.index')->with('error', 'Accès refusé.');
+        }
         $expense->delete();
         return redirect()->route('expenses.index')->with('success', 'Dépense supprimée !');
     }
