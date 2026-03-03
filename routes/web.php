@@ -9,6 +9,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\DebtController;
+use App\Http\Controllers\InvitationController;
 
 use App\Http\Middleware\IsAdmin;
 use App\Models\Payment;
@@ -46,6 +47,24 @@ Route::get('/colocations/{colocation}/debts', [DebtController::class, 'index'])
 
 Route::post('/colocations/{colocation}/debts/pay', [DebtController::class, 'markAsPaid'])
      ->name('debts.markAsPaid')
+     ->middleware('auth');
+
+
+
+Route::post('/colocations/{colocation}/invite', [InvitationController::class, 'store'])
+     ->name('invitations.store')
+     ->middleware('auth');
+
+Route::get('/invitations/{token}', [InvitationController::class, 'show'])
+     ->name('invitations.show')
+     ->middleware('auth');
+
+Route::post('/invitations/{token}/accept', [InvitationController::class, 'accept'])
+     ->name('invitations.accept')
+     ->middleware('auth');
+
+Route::post('/invitations/{token}/refuse', [InvitationController::class, 'refuse'])
+     ->name('invitations.refuse')
      ->middleware('auth');
 
 
