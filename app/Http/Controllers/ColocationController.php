@@ -18,36 +18,52 @@ class ColocationController extends Controller
 
     public function create()
     {
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Acces refuse.');
+        }
         return view('colocations.create');
     }
 
     public function store(StoreColocationRequest $request)
     {
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Acces refuse.');
+        }
         Colocation::create($request->validated());
-        return redirect()->route('colocations.index')->with('success', 'Colocation créée !');
+        return redirect()->route('colocations.index')->with('success', 'Colocation creee !');
     }
 
     public function show(Colocation $colocation)
     {
-      $membership = Membership::where('user_id',Auth::user()->id)->where('colocation_id', $colocation->id)->first();
-
+        $membership = Membership::where('user_id', Auth::user()->id)
+                                ->where('colocation_id', $colocation->id)
+                                ->first();
         return view('colocations.show', compact('colocation', 'membership'));
     }
 
     public function edit(Colocation $colocation)
     {
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Acces refuse.');
+        }
         return view('colocations.edit', compact('colocation'));
     }
 
     public function update(UpdateColocationRequest $request, Colocation $colocation)
     {
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Acces refuse.');
+        }
         $colocation->update($request->validated());
-        return redirect()->route('colocations.index')->with('success', 'Colocation mise à jour !');
+        return redirect()->route('colocations.index')->with('success', 'Colocation mise a jour !');
     }
 
     public function destroy(Colocation $colocation)
     {
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('colocations.index')->with('error', 'Acces refuse.');
+        }
         $colocation->delete();
-        return redirect()->route('colocations.index')->with('success', 'Colocation supprimée !');
+        return redirect()->route('colocations.index')->with('success', 'Colocation supprimee !');
     }
 }

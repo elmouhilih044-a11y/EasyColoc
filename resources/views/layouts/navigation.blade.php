@@ -11,7 +11,7 @@
         <!-- Tous les utilisateurs connectés -->
         <a href="{{ route('colocations.index') }}" style="color: #F5C46A;">Colocations</a>
         <a href="{{ route('expenses.index') }}"    style="color: #F5C46A;">Dépenses</a>
-        <a href="{{ route('payments.index') }}"    style="color: #F5C46A;">Paiements</a>
+       
 
         <!-- Owner uniquement -->
         @if(auth()->user()->role === 'owner')
