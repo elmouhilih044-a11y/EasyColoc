@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('memberships', function (Blueprint $table) {
-   $table->id();
-    $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-    $table->foreignId('colocation_id')->constrained('colocations')->onDelete('cascade');
-    $table->date('joined_at');
-    $table->date('left_at')->nullable();
-    $table->enum('role', ['owner', 'member']);
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('colocation_id')->constrained('colocations')->onDelete('cascade');
+            $table->timestamp('joined_at')->useCurrent();
+            $table->timestamp('left_at')->nullable();
+            $table->enum('role', ['owner', 'member']);
     
         });
     }

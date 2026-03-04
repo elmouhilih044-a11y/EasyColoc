@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Membership extends Model
 {
-      protected $fillable = ['user_id','colocation_id','joined_at','left_at','role'];
+    public $timestamps = false;
+
+    protected $fillable = ['user_id', 'colocation_id', 'role', 'joined_at', 'left_at'];
 
     public function user()
     {

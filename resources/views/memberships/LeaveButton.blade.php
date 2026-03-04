@@ -1,4 +1,3 @@
-{{-- Bouton à placer dans ta vue colocation (show ou index) --}}
 
 @if($membership->left_at === null)
 <form action="{{ route('memberships.leave', $membership) }}" method="POST" class="inline">

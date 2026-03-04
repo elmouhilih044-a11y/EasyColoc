@@ -24,7 +24,6 @@ class StoreColocationRequest extends FormRequest
         return [
             'name'        => 'required|string',
             'description' => 'nullable|string',
-            'status'      => 'required|in:active,cancelled',
         ];
     }
 }

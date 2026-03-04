@@ -17,9 +17,11 @@ class InvitationMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public Invitation $invitation)
+    public $invitation;
+
+    public function __construct(Invitation $invitation)
     {
-        //
+        $this->invitation = $invitation; 
     }
 
      public function build()
@@ -43,17 +45,17 @@ class InvitationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Invitation Mail',
+            subject: 'Invitation à rejoindre une colocation',
         );
     }
 
     /**
      * Get the message content definition.
      */
-    public function content(): Content
+   public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.invitation', 
         );
     }
 

@@ -33,22 +33,22 @@
     </div>
     <div class="flex flex-wrap justify-center gap-6 px-8 pb-20">
         <div class="bg-white p-6 rounded-xl shadow w-64 text-center" style="border-top:4px solid #B85C38;">
-            <div class="text-4xl mb-3">🏠</div>
+           
             <h3 class="font-bold text-lg mb-2" style="color:#0D0D0D;">Colocations</h3>
             <p style="color:#6B1A1A;">Creez et gerez vos colocations facilement.</p>
         </div>
         <div class="bg-white p-6 rounded-xl shadow w-64 text-center" style="border-top:4px solid #D4894A;">
-            <div class="text-4xl mb-3">💰</div>
+          
             <h3 class="font-bold text-lg mb-2" style="color:#0D0D0D;">Depenses</h3>
             <p style="color:#6B1A1A;">Suivez toutes les depenses partagees.</p>
         </div>
         <div class="bg-white p-6 rounded-xl shadow w-64 text-center" style="border-top:4px solid #8B2020;">
-            <div class="text-4xl mb-3">⚖️</div>
+           
             <h3 class="font-bold text-lg mb-2" style="color:#0D0D0D;">Remboursements</h3>
             <p style="color:#6B1A1A;">Calculez automatiquement qui doit quoi a qui.</p>
         </div>
         <div class="bg-white p-6 rounded-xl shadow w-64 text-center" style="border-top:4px solid #6B1A1A;">
-            <div class="text-4xl mb-3">✉️</div>
+           
             <h3 class="font-bold text-lg mb-2" style="color:#0D0D0D;">Invitations</h3>
             <p style="color:#6B1A1A;">Invitez vos colocataires par email.</p>
         </div>
